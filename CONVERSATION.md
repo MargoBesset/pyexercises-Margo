@@ -61,3 +61,20 @@ Printing in Python is done with the `print()` function.
 ```
 
 Which argument does `print()` take?
+
+---
+## 2026-11-10 15:24, in .
+
+**Me:** how to get input from user in python
+
+**Tutor:**
+
+Getting input from a user is done with the `input()` function.
+
+```python
+# TODO: replace 'Enter your name: ' with your own prompt
+user_name = input("Enter your name: ")
+print("Hello,", user_name)
+```
+
+What does the `input()` function return?

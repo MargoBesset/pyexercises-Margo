@@ -22,7 +22,7 @@ DELIVERABLE
     This file, with your comments and your code.
 """
 
-# 1. In:
+# 1. In: 
 # 2. Process:
 # 3. Out:
 # 4. My message, and why:
