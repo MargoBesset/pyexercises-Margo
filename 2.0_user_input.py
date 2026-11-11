@@ -26,10 +26,12 @@ DELIVERABLE
     This file, with your comments and your code.
 """
 
-# 1. In:
-# 2. Process:
-# 3. Out:
-# 4. My two fields, and what I would do with them:
+# 1. In: The user types their name and their age
+# 2. Process: The program stores each answer in a variable, then joins the text together to build a sentence
+# 3. Out: Three lines printed to the screen: "My name is ...", "My age is ...", and one combined sentence "My name is ... and my age is ..."
+# 4. My two fields, and what I would do with them: 
+# Field 1: name (text). I would use it to greet the person or personalize messages.
+# Field 2: age (text, because input() always returns a string). I would use it to show their age, or convert it with int(age) to do calculations such as the year they were born or whether they are an adult.
 
 
 # Your code below
