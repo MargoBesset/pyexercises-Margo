@@ -37,15 +37,89 @@ DELIVERABLE
 """
 
 # What is wrong with names.txt (found by reading it, not by guessing):
-# -
-# -
-# -
-# -
+# - Inconsistent capitals: "ada LOVELACE" (first name lower, last name upper),
+#   "grace hopper" (all lower), "GUIDO van rossum" (mixed). No line is
+#   written the same way as the others.
+# - Empty lines: lines 3 and 9 are blank (line 3 may contain only spaces),
+#   and line 11 looks empty at the end of the file.
+# - Extra spaces at the start of a line: line 4 "  alan TURING" and
+#   line 7 "  linus torvalds" begin with two spaces.
+# - A name with three words: "GUIDO van rossum" (line 8). "van" is a particle
+#   that belongs to the family name, so "last word = last name" is not
+#   obviously right here.
+# - The file is not sorted by last name (Lovelace, Hopper, Turing, ...).
+# - Duplicates: I looked and found none, so my program does not remove any.
 
-# 1. In:
+# 1. In: The file names.txt, read line by line (10 or 11 lines, depending on
+#    how line 11 is stored). Nothing is typed by the user. The file is opened
+#    only with "r", so the original is never modified.
 # 2. Process, problem by problem:
-# 3. Out:
-# 4. How I decide which word is the last name:
+#    - Empty lines (3, 9, 11): after split(), a blank line gives an empty
+#      list, so I skip it and count it.
+#    - Spaces at the start of a line (4, 7): split() ignores them.
+#    - Inconsistent capitals (1, 2, 8): each word is rewritten with a capital
+#      first letter and lowercase for the rest, using capitalize().
+#    - "van" in line 8: capitalize() would give "Van", so I keep a small list
+#      of particles (van, von, de...) that stay lowercase when they are not
+#      the first word. Result: "Guido van Rossum".
+#    - Not sorted: sort() with a key function that returns the last word.
+# 3. Out: A new file, names_clean_sorted.txt, with 8 clean names, one per
+#    line, sorted by last name. The screen shows lines read, lines kept,
+#    lines removed, and the first and last name of the sorted list.
+# 4. How I decide which word is the last name: the last word of the cleaned
+#    line. For "Guido van Rossum" that is "Rossum", so he is sorted under R,
+#    between Liskov/Lovelace and Torvalds. Limit: if someone's family name is
+#    really "van Rossum" or "de la Cruz" and I wanted it under V or D, this
+#    rule would be wrong. I accept this limit because the file has only one
+#    such case.
 
 
 # Your code below
+
+INPUT_FILE = "names.txt"
+OUTPUT_FILE = "names_clean_sorted.txt"
+PARTICLES = ["van", "von", "de", "der", "da", "di", "la"]
+
+
+def clean_name(line):
+    """Return a clean name, or None if the line is empty."""
+    words = line.split()  # removes spaces at the ends and between words
+    if len(words) == 0:
+        return None
+    fixed_words = []
+    for position, word in enumerate(words):
+        if position > 0 and word.lower() in PARTICLES:
+            fixed_words.append(word.lower())
+        else:
+            fixed_words.append(word.capitalize())
+    return " ".join(fixed_words)
+
+
+def last_name_key(name):
+    return name.split()[-1].lower()
+
+
+with open(INPUT_FILE, "r", encoding="utf-8") as file:
+    raw_lines = file.readlines()
+
+clean_names = []
+empty_lines = 0
+
+for line in raw_lines:
+    name = clean_name(line)
+    if name is None:
+        empty_lines = empty_lines + 1
+    else:
+        clean_names.append(name)
+
+clean_names.sort(key=last_name_key)
+
+with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
+    for name in clean_names:
+        file.write(name + "\n")
+
+print("Lines in", INPUT_FILE + ":", len(raw_lines))
+print("Lines in", OUTPUT_FILE + ":", len(clean_names))
+print("Removed as empty:", empty_lines)
+print("First:", clean_names[0] if clean_names else "none")
+print("Last: ", clean_names[-1] if clean_names else "none")

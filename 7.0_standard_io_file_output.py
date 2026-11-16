@@ -29,22 +29,30 @@ DELIVERABLE
     This file, plus the CSV your program produced.
 """
 
-# 1. In:
-# 2. Process:
-# 3. Out, file name and columns:
-# 4. Why these columns, and what this file is for:
+# 1. In: Four pieces of text typed by the user: first name, last name,
+#    date of birth (DD/MM/YYYY) and student number. input() always gives text.
+# 2. Process: The program joins the four values into one line, separated by
+#    commas (CSV format), and adds that line at the end of the file. The mode
+#    "a" (append) means old rows are kept and nothing is overwritten.
+# 3. Out, file name and columns: The file 7.0_student_data.csv, with four
+#    columns: First Name, Last Name, Date of Birth, Student Number.
+#    The screen also shows "Data saved successfully!".
+# 4. Why these columns, and what this file is for: First and last name tell
+#    students apart as people, the date of birth helps tell apart two students
+#    with the same name, and the student number is a unique ID. The file is a
+#    small student register that can be opened in Excel or read by another program later.
 
 
 # Your code below
 
-print("Please fill in the following details: ")
-first_name = input("First name : ")
-last_name = input("Last name : ")
-birth = input("Date of birth (DD/MM/YYYY) : ")
-student_number = input("Student number : ")
+print("Please fill in the following details:")
+first_name = input("First Name: ")
+last_name = input("Last Name: ")
+birth = input("Date of Birth (DD/MM/YYYY): ")
+student_number = input("Student Number: ")
 
-with open("7.0_student_data.csv", "a", newline="") as file : 
-    file.write("First name, Last name, Date of birth, Student number")
-    file.write(first_name + "," + last_name + "," + birth + "," + student_number)
+with open("7.0_student_data.csv", "a", newline="") as file:
+    file.write("First Name,Last Name,Date of Birth,Student Number\n")
+    file.write(first_name + "," + last_name + "," + birth + "," + student_number + "\n")
 
-print("Data saved successfully")
+print("Data saved successfully!")
