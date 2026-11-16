@@ -38,12 +38,12 @@ DELIVERABLE
 # Your code below
 
 print("Please fill in the following details: ")
-frist_name = input("First name : ")
+first_name = input("First name : ")
 last_name = input("Last name : ")
 birth = input("Date of birth (DD/MM/YYYY) : ")
 student_number = input("Student number : ")
 
-with ope("7.0_student_data.csv", "a", newline="") as file : 
+with open("7.0_student_data.csv", "a", newline="") as file : 
     file.write("First name, Last name, Date of birth, Student number")
     file.write(first_name + "," + last_name + "," + birth + "," + student_number)
 
